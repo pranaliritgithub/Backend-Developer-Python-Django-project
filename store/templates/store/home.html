@@ -1,0 +1,134 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<header id="header-image">
+    <img src="{% static 'images/header-image.jpg' %}" class="img-fluid" alt="Responsive image">
+    <figcaption>Furniture Store</figcaption>
+    <p>More than a furniture store</p>
+</header>
+
+<div class="container">
+    <br>
+    <main>
+        <div id="vision-mission">
+            <h4 class="text-center" style="color: sienna">Our Vision</h4>
+            <hr>
+            <p class="text-center"><i>Our vision is to be a leading international furniture manufacturer
+                offering innovative and superior quality products.</i></p>
+        </div>
+        <div id="vision-mission">
+            <h4 class="text-center" style="color: sienna">Our Mission</h4>
+            <hr>
+            <p class="text-center"><i>Our mission is to create Value for our customers through Reliability and Flexibility.
+                We want our customers to experience the warmth and comfort through Respect and Trust.</i></p>
+        </div>
+        <br>
+
+        <!-- Feature Icons -->
+        <div class="row ml-3">
+            {% comment "Feature cards" %}
+            {% for icon, text in features %}
+                <div class="col">
+                    <div class="card bg-light" style="width: 8rem;">
+                        <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static icon %}" alt="{{ text }}"/>
+                        <div class="card-body">
+                            <p class="card-text text-center">{{ text }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endcomment %}
+            <!-- Hardcoded version -->
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon.ico' %}" alt="Money"/>
+                    <div class="card-body"><p class="card-text text-center">Money Back Guarantee.</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon(6).ico' %}" alt="Quality"/>
+                    <div class="card-body"><p class="card-text text-center">High Quality.</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon(5).ico' %}" alt="Satisfaction"/>
+                    <div class="card-body"><p class="card-text text-center">Customer Satisfaction.</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon(7).ico' %}" alt="Delivery"/>
+                    <div class="card-body"><p class="card-text text-center">Same day Delivery.</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon(1).ico' %}" alt="Warranty"/>
+                    <div class="card-body"><p class="card-text text-center">3 year Warranty.</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light" style="width: 8rem;">
+                    <img style="width:4rem; margin: 20px 0 0 30px" class="card-img-top" src="{% static 'images/favicon(3).ico' %}" alt="Support"/>
+                    <div class="card-body"><p class="card-text text-center">Customer Support.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <!-- Feature Section -->
+        <div class="row featurette d-flex">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">50 Years of Experience. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="{% static 'images/main-furniture1.jpg' %}" style="width: 500px; height: 500px;" alt="Main Furniture">
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <div class="row featurette d-flex">
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="{% static 'images/main-furniture2.jpg' %}" style="width: 500px; height: 500px;" alt="Main Furniture 2">
+            </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First Class Furniture. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+        </div>
+
+        <br><hr><br>
+
+        <!-- Dynamic Furniture List -->
+        <h4 class="text-center" style="color: sienna">Explore Our Products</h4>
+        <div class="row">
+            {% for item in furniture %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{% static 'images/default-furniture.jpg' %}" alt="{{ item.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text">
+                                ₹{{ item.price }} <br>
+                                {{ item.description|truncatewords:15 }}
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'update_furniture' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'delete_furniture' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center">No furniture items found.</p>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}

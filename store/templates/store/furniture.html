@@ -1,0 +1,36 @@
+{% extends 'store/main.html' %}
+{% block content %}
+<br>
+<div class="container">
+    <h1 class="text-center" style="color: sienna;">All Furniture</h1>
+    <div class="text-right mb-4">
+        <a href="{% url 'create_furniture' %}" class="btn btn-success">Add New Furniture</a>
+    </div>
+
+    {% for furni in furniture %}
+        <div class="row featurette d-flex mb-5">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">
+                    {{ furni.name }}
+                    <span class="text-muted">({{ furni.code }})</span>
+                </h2>
+                <p class="lead">{{ furni.description }}</p>
+                <p><strong>₹{{ furni.price }}</strong></p>
+
+                <!-- ✅ FIXED: Use furni.id instead of furni._id -->
+                <a href="{% url 'update_furniture' furni.id %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                <a href="{% url 'delete_furniture' furni.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" 
+                     alt="{{ furni.name }}" 
+                     style="width: 500px; height: 500px;" 
+                     src="/static/{{ furni.image|default:'images/default-furniture.jpg' }}">
+            </div>
+        </div>
+        <hr>
+    {% empty %}
+        <p class="text-center">No furniture available right now.</p>
+    {% endfor %}
+</div>
+{% endblock %}

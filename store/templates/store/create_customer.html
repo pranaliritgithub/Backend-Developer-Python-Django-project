@@ -1,0 +1,25 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<div class="container">
+    <h2 class="mb-4">Create Customer</h2>
+    <form method="POST" class="d-flex flex-column">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger small">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <hr>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+{% endblock %}

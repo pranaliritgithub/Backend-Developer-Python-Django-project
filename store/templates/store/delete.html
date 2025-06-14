@@ -1,0 +1,25 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="row text-center">
+            <div class="col">
+                <div class="card card-body">
+                    {% if item.id %}
+                        <p>Are you sure you want to delete the order for "{{ item.furniture_name }}"?</p>
+                        <form action="{% url 'delete_order' item.id %}" method="POST">
+                            {% csrf_token %}
+                            <a class="btn btn-warning" href="{% url 'manage' %}">Cancel</a>
+                            <input class="btn btn-danger" type="submit" value="Confirm">
+                        </form>
+                    {% else %}
+                        <p class="text-danger">Error: Invalid Order ID.</p>
+                        <a class="btn btn-primary" href="{% url 'manage' %}">Back to Dashboard</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

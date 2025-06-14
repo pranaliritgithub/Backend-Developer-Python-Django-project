@@ -1,0 +1,37 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Contact Page</h1>
+    
+    <form method="post" class="d-flex flex-column gap-2">
+        {% csrf_token %}
+        
+        <label for="first-name">Your Name *</label>
+        <div class="d-flex gap-2">
+            <input id="first-name" type="text" name="first_name" class="form-control" placeholder="First name" required>
+            <input id="last-name" type="text" name="last_name" class="form-control" placeholder="Last name" required>
+        </div>
+        
+        <label for="email">Email Address *</label>
+        <input id="email" type="email" name="email" class="form-control" placeholder="example@email.com" required>
+
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="tel" name="phone" class="form-control" placeholder="+91 9876543210">
+
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject" class="form-select">
+            <option value="complaint">Complaint</option>
+            <option value="refund">Refund</option>
+            <option value="quote">Quote</option>
+        </select>
+
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Please enter your comments..." required></textarea>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-secondary px-4">Send</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
